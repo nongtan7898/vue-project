@@ -18,5 +18,13 @@ export const useGetStore = defineStore("get", {
         console.error(error);
       }
     },
+    async pushData() {
+      this.data.push({
+        userId: 1,
+        id: 2,
+        title: "TEST",
+        completed: false,
+      });
+    },
   },
 });

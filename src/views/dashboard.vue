@@ -17,10 +17,12 @@
       </tr>
     </tbody>
   </table>
+  <button @click="store.pushData">push</button>
+  {{ store._getData }}
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, nextTick } from "vue";
 import { useGetStore } from "../stores/counter";
 import $ from "jquery";
 const store = useGetStore();
@@ -32,6 +34,7 @@ onMounted(() => {
 watch(
   () => store._getData,
   async () => {
+    await nextTick();
     await $("#myTable").DataTable();
   }
 );
