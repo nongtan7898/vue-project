@@ -12,12 +12,22 @@ onMounted(() => {
 });
 
 const columns = [
-  { data: "userId", title: "userId" },
-  { data: "id", title: "id" },
-  { data: "title", title: "title" },
-  { data: "completed", title: "completed" },
+  { data: "userId" },
+  { data: "id" },
+  { data: "title" },
+  { data: "completed" },
 ];
 const options = {
+  columnDefs: [
+    {
+      targets: "_all",
+      className: "dt-head-center",
+    },
+    {
+      targets: [0, 1, 3],
+      className: "dt-body-center",
+    },
+  ],
   language: {
     paginate: {
       next: "ถัดไป",
@@ -38,19 +48,31 @@ const options = {
       This example demonstrates the <code>datatables.net-vue3</code> package
       being used to display an interactive DataTable in a Vue application.
     </p>
-    <button class="bg-green-500 text-white px-4 py-2" @click="store.pushData">push</button>
+    <button class="bg-green-500 text-white px-4 py-2" @click="store.pushData">
+      push
+    </button>
 
     <DataTable
       :columns="columns"
       :options="options"
       :data="store._getData"
-      class="display mt-4 border-collapse"
-      width="100%"
+      class="display mt-4 border-collapse w-full"
     >
+      <thead class="bg-gray-800 text-white">
+        <tr class="">
+          <th>userId</th>
+          <th>id</th>
+          <th>title</th>
+          <th>completed</th>
+        </tr>
+      </thead>
     </DataTable>
   </div>
 </template>
 
 <style>
 @import "datatables.net-dt";
+td {
+  background-color: white;
+}
 </style>
