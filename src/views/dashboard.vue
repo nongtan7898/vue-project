@@ -1,43 +1,56 @@
-<template>
-  <table id="myTable">
-    <thead>
-      <tr>
-        <th>userId</th>
-        <th>id</th>
-        <th>title</th>
-        <th>completed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, index) in store._getData" :key="index">
-        <td>{{ item.userId }}</td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.completed }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <button @click="store.pushData">push</button>
-  {{ store._getData }}
-</template>
-
 <script setup>
-import { ref, onMounted, watch, nextTick } from "vue";
+import DataTable from "datatables.net-vue3";
+import DataTablesCore from "datatables.net";
+import { onMounted } from "vue";
 import { useGetStore } from "../stores/counter";
-import $ from "jquery";
 const store = useGetStore();
+
+DataTable.use(DataTablesCore);
 
 onMounted(() => {
   store.getData();
 });
 
-watch(
-  () => store._getData,
-  async () => {
-    await nextTick();
-    await $("#myTable").DataTable();
-  }
-);
+const columns = [
+  { data: "userId", title: "userId" },
+  { data: "id", title: "id" },
+  { data: "title", title: "title" },
+  { data: "completed", title: "completed" },
+];
+const options = {
+  language: {
+    paginate: {
+      next: "ถัดไป",
+      previous: "ก่อนหน้า",
+    },
+  },
+};
 </script>
 
-<style></style>
+<template>
+  <div>
+    <h1 class="text-3xl font-bold underline bg-gray-800 text-white">
+      Hello world!
+    </h1>
+    <h1>Simple table</h1>
+    <h2>DataTables + Vue3 example</h2>
+    <p>
+      This example demonstrates the <code>datatables.net-vue3</code> package
+      being used to display an interactive DataTable in a Vue application.
+    </p>
+    <button class="bg-green-500 text-white px-4 py-2" @click="store.pushData">push</button>
+
+    <DataTable
+      :columns="columns"
+      :options="options"
+      :data="store._getData"
+      class="display mt-4 border-collapse"
+      width="100%"
+    >
+    </DataTable>
+  </div>
+</template>
+
+<style>
+@import "datatables.net-dt";
+</style>
