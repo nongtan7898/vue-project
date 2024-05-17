@@ -12,6 +12,12 @@ onMounted(() => {
 });
 
 const columns = [
+  {
+    title: "#",
+    render: function (data, type, row, meta) {
+      return meta.row + 1;
+    },
+  },
   { data: "userId" },
   { data: "id" },
   { data: "title" },
@@ -24,7 +30,7 @@ const options = {
       className: "dt-head-center",
     },
     {
-      targets: [0, 1, 3],
+      targets: [0, 1, 2, 4],
       className: "dt-body-center",
     },
   ],
@@ -60,6 +66,7 @@ const options = {
     >
       <thead class="bg-gray-800 text-white">
         <tr class="">
+          <th>#</th>
           <th>userId</th>
           <th>id</th>
           <th>title</th>
@@ -72,7 +79,4 @@ const options = {
 
 <style>
 @import "datatables.net-dt";
-td {
-  background-color: white;
-}
 </style>

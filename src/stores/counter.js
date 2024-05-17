@@ -13,7 +13,7 @@ export const useGetStore = defineStore("get", {
         const response = await window.Axios.get(
           `https://jsonplaceholder.typicode.com/todos`
         );
-        this.data = response.data;
+        this.data = await response.data;
       } catch (error) {
         console.error(error);
       }
